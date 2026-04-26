@@ -1,7 +1,8 @@
+
 #include <stdio.h>
 #include <stdlib.h>  // DMM
-#include <ctype.h>   // character handling
-#include <string.h>  // string handling
+// #include <ctype.h>   // character handling
+// #include <string.h>  // string handling
 #include <limits.h>  // data type limits
 #include <stdbool.h> // boolean support
 
@@ -99,11 +100,47 @@ void mirror(node *root){
     mirror(root->right);
 }
 
-// Inorder successor: Next node in this traversal sequence
-// Perform inorder traversal
-// Track previous node
-// When previous == target --> Current successor
+// Inorder successor: It is the node that comes Immeadiately after the given node in the Inorder traversal of the tree. 
 
+/*
+    BST:
+    5 --> 10 --> 15 --> 20 --> 25 --> 30 --> 35
+    Successor of 10 = 15
+    Successor of 20 = 25
+
+    Rule 1: If right child exists
+    Go right once, then go left as much as possible
+
+    Rule 2: If no right child
+    Go upward and find the first parent where you came from the left
+*/
+
+// Find leftmost node
+node *findMin(node *root){
+    while(root->left != NULL) root = root->left;
+    return root;
+}
+
+// Find Inorder successor
+node *InorderSuccessor(node *root, node *target){
+    // Rule: 1
+    if(root->right != NULL) return findMin(root->right);
+
+    // Rule: 2
+    node *successor = NULL;
+    while(root != NULL){
+        if(target->data < root->data){
+            successor = root;
+            root = root->left;
+        } else if(target->data > root->data){
+            root = root->right;
+        }else {
+            break;
+        }
+    }
+
+    return successor;
+}
 
 int main() {
     
