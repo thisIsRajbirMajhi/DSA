@@ -1,7 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>  // DMM
-// #include <ctype.h>   // character handling
-// #include <string.h>  // string handling
 #include <limits.h>  // data type limits
 #include <stdbool.h> // boolean support
 
